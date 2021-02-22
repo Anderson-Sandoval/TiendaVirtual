@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/estilos.css" />
+    <link rel="stylesheet" href="../css/icons.css" />
+    <title>Log-in</title>
+
+</head>
+
+<body class="cuerpo">
+    <header>
+        <div class="cabecera" id="home">
+            <h1><a id="logo" href="../index.html">TastyTae</a></h1>
+        </div>
+    </header>
+    <section class="seccion">
+        <div class="sesion">
+            <nav class="registro" id="registro">
+                <div class="signup">
+                    <h2>Registrarse</h2>
+                    <div>
+                        <input type="text" class="input" placeholder="Nombre" required/>
+                        <input type="text" class="input" placeholder="Celular" />
+                        <input type="text" class="input" placeholder="Dirección" />
+                        <input type="email" class="input" placeholder="Email" required/>
+                        <input type="password" class="input" placeholder="Contraseña" required/>
+                    </div>
+                    <button class="botones" id="sumbit">Registrarse</button>
+                    <p>¿Ya tienes cuenta? Entonces:</p>
+                    <p id="inicio-sesion">Iniciar sesión</p>
+                </div>
+            </nav>
+            <nav class="login slide-up" id="login">
+                <div>
+                    <h2>Iniciar Sesion</h2>
+                    <div>
+                        <input type="email" class="input" placeholder="Email" />
+                        <input type="password" class="input" placeholder="Contraseña" />
+                    </div>
+                    <button class="botones" id="submit">Iniciar</button>
+                    <p>¿No tienes cuenta? Entonces:</p>
+                    <p id="registro-sesion">Registrarse</p>
+                </div>
+            </nav>
+        </div>
+    </section>
+    <script src="../js/sesion.js"></script>
+</body>
+
+</html>
