@@ -5,7 +5,7 @@
  */
 package servlets;
 
-import sql.usuario;
+import sql.usuarioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -34,7 +34,7 @@ public class SignIn extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        usuario us = new usuario();
+        usuarioDAO us = new usuarioDAO();
         if(us.insertaUsuario(request.getParameter("user"), request.getParameter("pass"))){
             response.sendRedirect(request.getContextPath() +"/logIn.jsp");
         }else{

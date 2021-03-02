@@ -5,7 +5,7 @@
  */
 package servlets;
 
-import sql.carrito;
+import sql.carritoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -35,7 +35,7 @@ public class AgregarACarrito extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            carrito c = new carrito();
+            carritoDAO c = new carritoDAO();
             if(c.insertaCarrito(request.getParameter("user"),request.getParameter("prod"))){
                 response.sendRedirect(request.getContextPath() +"/tienda.jsp?user="+request.getParameter("user")+"&log=producto agregado");
             }else{

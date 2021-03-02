@@ -5,7 +5,7 @@
  */
 package servlets;
 
-import sql.usuario;
+import sql.usuarioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -35,7 +35,7 @@ public class logIn extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         
-        usuario us = new usuario();
+        usuarioDAO us = new usuarioDAO();
         if(us.consultaUsuario(request.getParameter("user"), request.getParameter("pass"))){
             response.sendRedirect(request.getContextPath() +"/tienda.jsp?user="+us.id);
         }else{
