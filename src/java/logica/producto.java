@@ -5,6 +5,8 @@
  */
 package logica;
 
+import java.awt.Image;
+
 /**
  *
  * @author DAVID
@@ -15,7 +17,7 @@ public class producto {
     private String n_nombreProducto;
     private int q_stock;
     private int k_idCategoria;
-    private int k_rutProveedor;
+    private Image archivo;
 
     public int getK_idProducto() {
         return k_idProducto;
@@ -57,18 +59,18 @@ public class producto {
         this.k_idCategoria = k_idCategoria;
     }
 
-    public int getK_rutProveedor() {
-        return k_rutProveedor;
+    public Image getArchivo() {
+        return archivo;
     }
 
-    public void setK_rutProveedor(int k_rutProveedor) {
-        this.k_rutProveedor = k_rutProveedor;
+    public void setArchivo(Image archivo) {
+        this.archivo = archivo;
     }
+
+
     
     
     
     
-    public producto(){
-    
-    }
+
 }

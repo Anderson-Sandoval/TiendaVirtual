@@ -10,11 +10,11 @@ package logica;
  * @author DAVID
  */
 public class venta {
-    private int k_idVenta;
     private String f_fechaVenta ;//cambiar por date
     private float q_montoFinal ;
     private float q_descuento ;
     private String k_emailCliente ;
+    private int k_idVenta;
 
     public int getK_idVenta() {
         return k_idVenta;
@@ -23,6 +23,7 @@ public class venta {
     public void setK_idVenta(int k_idVenta) {
         this.k_idVenta = k_idVenta;
     }
+
 
     public String getF_fechaVenta() {
         return f_fechaVenta;
