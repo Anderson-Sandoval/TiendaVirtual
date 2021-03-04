@@ -119,11 +119,11 @@ public class ProductoDAO {
         return respuesta;
     }
     
-    public void insertarProductos(String nombre,int stock, int valor, int idCategoria,InputStream imagen){
+    public void insertarProductos(String nombre, int valor, int idCategoria,InputStream imagen){
         
         Connection con;
         PreparedStatement prepStmt;
-        String strSQL = "insert into producto values ((select count(*)from categoria)+1,"+valor+",'"+nombre+"',"+stock+","+idCategoria+",?);";
+        String strSQL = "insert into producto values ((select count(*)from categoria)+1,"+valor+",'"+nombre+"',"+100+","+idCategoria+",?);";
         
         ResultSet rs;
         try{
@@ -137,7 +137,7 @@ public class ProductoDAO {
                 con.close();
             }
         }catch(Exception e){
-            
+         System.out.println(e);
         }
         
     }

@@ -5,21 +5,30 @@
  */
 package servlets;
 
-import Consultas.ClienteDAO;
+import logica.*;
+import Consultas.*;
+import controlador.util.CaException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author carlos lopez
  */
-@WebServlet(name = "SignIn", urlPatterns = {"/SignIn"})
-public class SignIn extends HttpServlet {
+@WebServlet(name = "nuevoProducto", urlPatterns = {"/nuevoProducto"})
+@MultipartConfig
+public class nuevoProducto extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,18 +40,26 @@ public class SignIn extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, CaException, Exception {
         response.setContentType("text/html;charset=UTF-8");
-        
-        ClienteDAO us = new ClienteDAO();
-        if(!us.buscarUsuario(request.getParameter("user"))){
-            us.ingresarUsuario(request.getParameter("user"), request.getParameter("pass"), request.getParameter("direccion"), request.getParameter("nombre"), request.getParameter("telefono"));
-            response.sendRedirect(request.getContextPath() +"/logIn.jsp");
-        }else{
-            response.sendRedirect(request.getContextPath() +"/SingIn.jsp?log=No se pudo registrar");
-        } 
-        
-
+        Part filePart = request.getPart("file");
+        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+        InputStream fileContent = filePart.getInputStream();
+        ProductoDAO p = new ProductoDAO();
+        if (true) {
+            try{
+            CategoriaDAO catDao = new CategoriaDAO();
+            categoria cat = catDao.obtenerCategoria(request.getParameter("categoria"));
+            
+            p.insertarProductos(request.getParameter("nombre"), Integer.parseInt(request.getParameter("precio")),cat.getK_idCategoria(),null);
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }
+            response.sendRedirect(request.getContextPath() + "/addProducto.jsp?log=producto insertado&user=" + request.getParameter("user"));
+        } else {
+            response.sendRedirect(request.getContextPath() + "/addProducto.jsp?log=No se pudo insertar&user=" + request.getParameter("user"));
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -57,7 +74,11 @@ public class SignIn extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
     }
 
     /**
@@ -71,7 +92,11 @@ public class SignIn extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
     }
 
     /**

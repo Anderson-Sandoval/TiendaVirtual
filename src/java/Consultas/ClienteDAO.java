@@ -31,6 +31,8 @@ private ServiceLocator conexion= new ServiceLocator();
     usuario respuesta=null;
      Connection con;
         PreparedStatement prepStmt;
+        System.out.println(correo);
+        System.out.println(contraseña);
         String strSQL = "select * from cliente where k_email='"+correo+"' and o_contraseña='"+contraseña+"';";
         ResultSet rs;
         try{
@@ -39,11 +41,37 @@ private ServiceLocator conexion= new ServiceLocator();
             prepStmt = con.prepareStatement(strSQL);
             rs = prepStmt.executeQuery();
             while (rs.next()){
+                respuesta=new usuario();
                 respuesta.setK_email(correo);
                 respuesta.setN_direccion(rs.getString(3));
                 respuesta.setN_nombre(rs.getString(2));
-                respuesta.setO_contraseña(contraseña);
+                respuesta.setO_contraseña(rs.getString(4));
                 respuesta.setQ_telefono(rs.getString(5));
+            }
+            
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    
+    
+    return respuesta;
+}
+
+
+    
+    public boolean buscarUsuario(String correo){
+    boolean respuesta=false;
+     Connection con;
+        PreparedStatement prepStmt;
+        String strSQL = "select * from cliente where k_email='"+correo+"';";
+        ResultSet rs;
+        try{
+            Class.forName(conexion.getDriver());
+            con= DriverManager.getConnection(conexion.getUrl(), conexion.getUsuario(), conexion.getPass());
+            prepStmt = con.prepareStatement(strSQL);
+            rs = prepStmt.executeQuery();
+            while (rs.next()){
+               respuesta =true;
             }
             
         }catch(Exception e){
@@ -52,8 +80,30 @@ private ServiceLocator conexion= new ServiceLocator();
     
     
     return respuesta;
-}
-
-
+}    
+    
+    
+    public void ingresarUsuario(String correo,String contraseña,String direccion,String nombre,String telefono){
+    usuario respuesta=null;
+     Connection con;
+        PreparedStatement prepStmt;
+        String strSQL ="insert into cliente values ('"+correo+"','"+nombre+"','"+direccion+"','"+contraseña+"',"+telefono+");";
+        ResultSet rs;
+        try{
+            Class.forName(conexion.getDriver());
+            con= DriverManager.getConnection(conexion.getUrl(), conexion.getUsuario(), conexion.getPass());
+            prepStmt = con.prepareStatement(strSQL);
+            if(prepStmt.executeUpdate()>0){
+                con.close();
+            }else{
+                con.close();
+            }
+        }catch(Exception e){
+            
+        }
+}    
+    
+    
+    
 
 }

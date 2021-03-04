@@ -17,11 +17,11 @@ public class VentaProductoDAO {
     public VentaProductoDAO() {
     }
     
-    public void agregarVentas(int idVenta,producto[] productos, int[] cantidades){
-        for(int i=0;i<cantidades.length;i++){
+    public void agregarVentas(int idVenta,producto[] productos){
+        for(int i=0;i<productos.length;i++){
         Connection con;
         PreparedStatement prepStmt;
-        String strSQL = "insert into venta_producto values ("+idVenta+","+productos[i].getK_idProducto()+","+cantidades[i]+","+((cantidades[i])*(productos[i].getQ_valorProducto()))+");";
+        String strSQL = "insert into venta_producto values ("+idVenta+","+productos[i].getK_idProducto()+","+1+","+((productos[i].getQ_valorProducto()))+");";
         
         ResultSet rs;
         try{

@@ -5,7 +5,8 @@
  */
 package servlets;
 
-import Consultas.ClienteDAO;
+import Consultas.*;
+import logica.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,13 +14,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import logica.venta;
 
-/**
- *
- * @author carlos lopez
- */
-@WebServlet(name = "SignIn", urlPatterns = {"/SignIn"})
-public class SignIn extends HttpServlet {
+@WebServlet(name = "comprar", urlPatterns = {"/comprar"})
+public class comprar extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,16 +31,16 @@ public class SignIn extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        ClienteDAO us = new ClienteDAO();
-        if(!us.buscarUsuario(request.getParameter("user"))){
-            us.ingresarUsuario(request.getParameter("user"), request.getParameter("pass"), request.getParameter("direccion"), request.getParameter("nombre"), request.getParameter("telefono"));
-            response.sendRedirect(request.getContextPath() +"/logIn.jsp");
-        }else{
-            response.sendRedirect(request.getContextPath() +"/SingIn.jsp?log=No se pudo registrar");
-        } 
-        
-
+        VentaDAO ventadao=new VentaDAO();
+        venta c = ventadao.generarVenta(request.getParameter("user"), 0);
+        carrito cr = new carrito();
+        VentaProductoDAO vpd=new VentaProductoDAO();
+        if (true) {
+            vpd.agregarVentas(c.getK_idVenta(),(producto[])cr.consultaProductosCarrito(request.getParameter("user")).toArray());
+            response.sendRedirect(request.getContextPath() + "/carrito.jsp?user=" + request.getParameter("user") + "&log=producto eliminado");
+        } else {
+            response.sendRedirect(request.getContextPath() + "/carrito.jsp?user=" + request.getParameter("user") + "&log=No se pudo eliminar");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -5,7 +5,7 @@
  */
 package servlets;
 
-import sql.usuarioDAO;
+import Consultas.ClienteDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import logica.usuario;
 
 /**
  *
@@ -35,9 +36,10 @@ public class logIn extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         
-        usuarioDAO us = new usuarioDAO();
-        if(us.consultaUsuario(request.getParameter("user"), request.getParameter("pass"))){
-            response.sendRedirect(request.getContextPath() +"/tienda.jsp?user="+us.id);
+        ClienteDAO us = new ClienteDAO();
+        usuario clienteUno= us.validarUsuario(request.getParameter("user"), request.getParameter("pass"));
+        if(null!=clienteUno){
+            response.sendRedirect(request.getContextPath() +"/tienda.jsp?user="+clienteUno.getK_email());
         }else{
             response.sendRedirect(request.getContextPath() +"/logIn.jsp?log=datos incorrectos");
         }   

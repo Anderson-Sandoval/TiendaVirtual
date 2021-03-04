@@ -5,7 +5,7 @@
  */
 package servlets;
 
-import sql.carritoDAO;
+import logica.carrito;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -14,10 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author carlos lopez
- */
+
 @WebServlet(name = "AgregarACarrito", urlPatterns = {"/AgregarACarrito"})
 public class AgregarACarrito extends HttpServlet {
 
@@ -35,7 +32,7 @@ public class AgregarACarrito extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            carritoDAO c = new carritoDAO();
+            carrito c = new carrito();
             if(c.insertaCarrito(request.getParameter("user"),request.getParameter("prod"))){
                 response.sendRedirect(request.getContextPath() +"/tienda.jsp?user="+request.getParameter("user")+"&log=producto agregado");
             }else{

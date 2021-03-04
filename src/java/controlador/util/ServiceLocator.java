@@ -13,7 +13,7 @@ public class ServiceLocator {
         String driver;
 
     public ServiceLocator() {
-        this.url = "jdbc:postgresql://localhost:5432/parqueadero";
+        this.url = "jdbc:postgresql://localhost:5432/TiendaVirtual";
         this.usuario = "postgres";
         this.pass = "kevinydilmerK1001";
         this.driver = "org.postgresql.Driver";

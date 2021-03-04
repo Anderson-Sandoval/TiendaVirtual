@@ -93,6 +93,31 @@ public class CategoriaDAO {
         return resultado;
     }
     
+    public categoria obtenerCategoria(String nombre) throws CaException{
+        Connection con;
+        categoria cat=null;
+        PreparedStatement prepStmt;
+        String strSQL = "select * from categoria where n_nombrecategoria='"+nombre+"';";
+        ResultSet rs;
+        boolean resultado=false;
+        try{
+            Class.forName(conexion.getDriver());
+            con= DriverManager.getConnection(conexion.getUrl(), conexion.getUsuario(), conexion.getPass());
+            prepStmt = con.prepareStatement(strSQL);
+            rs = prepStmt.executeQuery();
+            while (rs.next()){
+                cat= new categoria();
+                cat.setK_idCategoria(rs.getInt(1));
+                cat.setN_nombreCategoria(rs.getString(2));
+                cat.setN_descripcionCategoria(rs.getString(3));
+            }
+            
+        }catch(Exception e){
+            
+        }
+        return cat;
+    }
+    
     
     public int numeroCategorias(){
         int respuesta=0;
